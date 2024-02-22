@@ -4,6 +4,7 @@
 #include <sys/types.h>
 #include <dirent.h>
 #include <string.h>
+//alba es demasiado guapa para este trabajo
 
 
 int main(int argc, char *argv[])
@@ -12,6 +13,7 @@ int main(int argc, char *argv[])
 	if(argc < 3)
 	{
 		printf("Too few arguments\n");
+		printf();
 		return -1;
 	}
 
