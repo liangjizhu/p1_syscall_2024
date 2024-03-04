@@ -20,34 +20,39 @@ int main(int argc, char *argv[])
 	// boolean value to check if file exists
 	int exists = 0;
 
-	// pointer pDir which points to a directory
-	DIR *pDir = opendir(argv[1]);
-	if (pDir == NULL)
+	// pointer directory which points to a directory
+	DIR *directory = opendir(argv[1]);
+	if (directory == NULL)
 	{
 		printf("Error, directory name not found\n");
 		return -1;
 	}
 	else 
 	{
+		printf("hola1\n");
 		// we go through a loop for searching through the directory if directory exists
-		while ((files = readdir(pDir)) != NULL)
+		while ((files = readdir(directory)) != NULL)
 		{
+			printf("hola2\n");
 			if (strcmp(files->d_name, argv[2]) == 0)
 			{
 				printf("File %s is in directory %s\n", argv[2], argv[1]);
 				exists = 1;
 				break;
 			}
+
 		}
+		printf("hola3\n");
 	}
 
 	// if file doesn't exists
 	if (exists != 1)
 	{
 		printf("File %s is not in directory %s\n", argv[2], argv[1]);
+
 	}
 
 	// close the directory
-	closedir(pDir);
+	closedir(directory);
 	return 0;
 }
