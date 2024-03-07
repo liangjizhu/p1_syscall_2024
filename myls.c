@@ -1,45 +1,36 @@
 //P1-SSOO-23/24
 
-/*Next, we'll implement the *myls* program. This program lists entries in a directory, requiring use of the opendir, readdir, and closedir system calls from the POSIX standard to read directory contents.
-
-### Pseudocode for myls
-
-1. Check if the directory path is provided; if not, use the current directory.
-2. Open the directory using opendir.
-3. If the directory cannot be opened, return -1.
-4. Loop through directory entries using readdir.
-5. For each entry, print the entry name.
-6. Close the directory using closedir.
-7. Return 0 if the program executes successfully.*/
 
 #include <stdio.h>		// Header file for system call printf
 #include <unistd.h>		// Header file for system call gtcwd
 #include <sys/types.h>	// Header file for system calls opendir, readdir y closedir
 #include <dirent.h>
 #include <string.h>
+#define PATH_MAX 4096  // Maximum length of a path
 
 
 int main(int argc, char *argv[]) {
-    DIR *dir;
-    struct dirent *entry;
+    DIR *dir; 
+    struct dirent *entry; 
+    char path[PATH_MAX]; // Path to the directory to be listed
 
-    if (argc < 2) {
+    if (argc < 2) { 
         // If no directory is specified, use the current directory
-        dir = opendir(".");
-    } 
-	else {
-        dir = opendir(argv[1]);
+        getcwd(path, PATH_MAX); // Get the current working directory
+        dir = opendir(path); // Open the current directory
+    } else {
+        dir = opendir(argv[1]); // Open the directory specified as an argument
     }
 
     if (dir == NULL) {
-        perror("opendir failed");
+        perror("opendir failed"); // Print an error message
         return -1;
     }
 
     while ((entry = readdir(dir)) != NULL) {
-        printf("%s\n", entry->d_name);
+        printf("%s\n", entry->d_name); // Print the name of the file or directory
     }
-    closedir(dir);
+    closedir(dir); // Close the directory
     return 0;
 }
 
