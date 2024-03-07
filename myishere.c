@@ -36,7 +36,6 @@ int main(int argc, char *argv[])
 			{
 				printf("File %s is in directory %s\n", argv[2], argv[1]);
 				exists = 1;
-				break;
 			}
 
 		}
